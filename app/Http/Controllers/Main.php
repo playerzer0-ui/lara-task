@@ -35,9 +35,11 @@ class Main extends Controller
             'username' => $req->username,
             'userPassword' => Hash::make($req->userPassword), // Hash the password
         ]);
-
+    
+        Auth::login($user);
         $req->session()->put("userID", $user->userID);
         $req->session()->put("username", $user->username);
+        $req->session()->regenerate();
         return redirect("/dashboard");
     }
 
